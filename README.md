@@ -1,56 +1,62 @@
-# ❤️ Heart Disease Prediction using Machine Learning
+# 🫀 Heart Disease Prediction Model
 
-This project aims to predict the presence of heart disease in patients using a machine learning approach. It leverages health-related features such as age, cholesterol levels, and chest pain type, applying a **Logistic Regression** classifier to make accurate predictions.
+> Machine Learning classification model predicting cardiovascular disease risk based on clinical patient health metrics using Python and Scikit-Learn.
 
-## 📌 Project Overview
-
-Heart disease is a leading cause of mortality globally. Early detection through machine learning can enable timely medical intervention and save lives. This project uses the UCI Heart Disease dataset to build a supervised learning model.
-
----
-
-## 🚀 Features
-
-- Predicts whether a patient has heart disease (binary classification)
-- Uses Logistic Regression for simplicity and effectiveness
-- Accepts input for 13 medical attributes
-- Easy-to-understand prediction output (Heart Disease / No Heart Disease)
-- Suitable as a base for a medical diagnostic tool
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-F37626?style=for-the-badge&logo=jupyter&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/Scikit_Learn-ML-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)
 
 ---
 
-## 📂 Dataset
+## ⭐ Star Schema (Clinical Data Warehouse Model)
 
-- **Source:** [UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/Heart+Disease)
-- **Instances:** 303
-- **Features:** 13
-  - Age, Sex, Chest Pain Type, Resting Blood Pressure, Cholesterol, Fasting Blood Sugar, etc.
-- **Target:** `1` (has heart disease), `0` (no heart disease)
+```
+                            +-----------------------------------+
+                            |           Dim_Patient             |
+                            +-----------------------------------+
+                            | Patient_Key (PK)                  |
+                            | Age                               |
+                            | Sex (Male/Female)                 |
+                            | MedicalHistory                    |
+                            +-----------------+-----------------+
+                                              | 1
+                                              |
+                                              | N
++-----------------------+   +-----------------+-----------------+   +-----------------------+
+|  Dim_Calendar         | 1 |      Fact_PatientDiagnosis        | 1 |  Dim_ClinicalTest     |
++-----------------------+---+-----------------------------------+---+-----------------------+
+| Date_Key (PK)         | N | Diagnosis_Key (PK)                | N | Test_Key (PK)         |
+| Full_Date             |   | Date_Key (FK)                     |   | Test_Name             |
+| Month / Year          |   | Patient_Key (FK)                  |   | Normal_Range          |
++-----------------------+   | Test_Key (FK)                     |   +-----------------------+
+                            | Trestbps_mmHg (Measure)           |
+                            | Serum_Cholesterol_mgdl (Measure)  |
+                            | Max_HeartRate_Thalach (Measure)   |
+                            | ST_Depression_Oldpeak (Measure)   |
+                            | Target_HeartDisease (Measure)     |
+                            +-----------------------------------+
+```
 
 ---
 
-## 🛠️ Tech Stack
+## 📑 Clinical Input Feature Schema
 
-- Python 3.x
-- Jupyter Notebook
-- Libraries:
-  - NumPy
-  - Pandas
-  - Scikit-learn (Logistic Regression, train-test split, accuracy)
-
----
-
-## 🧠 Model Training & Evaluation
-
-- Logistic Regression trained on 80% of the data
-- Tested on 20% of the data
-- **Accuracy:**
-  - Training: ~85.2%
-  - Testing: ~81.9%
+| Attribute | Field Name | Data Type | Description & Valid Ranges |
+| :--- | :--- | :--- | :--- |
+| **Age** | `age` | Integer | Patient age in years ($29 - 77$) |
+| **Sex** | `sex` | Categorical | $1 = \text{Male}, 0 = \text{Female}$ |
+| **Chest Pain** | `cp` | Categorical | $0$: Typical, $1$: Atypical, $2$: Non-anginal, $3$: Asymptomatic |
+| **Blood Pressure** | `trestbps` | Float | Resting blood pressure in mm Hg ($94 - 200$) |
+| **Cholesterol** | `chol` | Float | Serum cholesterol in mg/dl ($126 - 564$) |
+| **Target Output** | `target` | Binary | **$1 = \text{Heart Disease Risk Present}, 0 = \text{Healthy}$** |
 
 ---
 
-## 🧪 Sample Prediction
+## 🚀 Running the Notebook
 
-```python
-input_data = (41, 0, 1, 130, 204, 0, 0, 172, 0, 1.4, 2, 0, 2)
-# Output: The person is suffering from Heart Disease
+```bash
+git clone https://github.com/SamarthYete/Heart_Disease_Prediction_Model.git
+cd Heart_Disease_Prediction_Model
+pip install notebook pandas numpy scikit-learn seaborn matplotlib
+jupyter notebook
+```
